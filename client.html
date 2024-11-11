@@ -4,21 +4,19 @@
 //      const ws = new WebSocket('ws://localhost:8080');
       const ws = new WebSocket('ws://testrender-i509.onrender.com');
 
-      ws.onopen = function() {  
+      ws.onopen = function() {
         document.querySelector('#send').disabled = false;
         document.querySelector('#send').addEventListener('click', function() {
           let msg=document.querySelector('#message').value
-          console.log("Sending ",msg)
           ws.send(msg);
         });
-      };   
+      };
       ws.onmessage = function(msg) {
-        let response=msg.data.toString()
-        document.querySelector('#messages').innerHTML += `<div>${response}</div>`;
+        msg.data.text().then( (value) => {document.querySelector('#messages').innerHTML += `<div>${value}</div>`} )
       };
     </script>
   </head>
-  <body> 
+  <body>
     <h1>Chat</h1>
     <div>
       <input id="message" placeholder="Message">
@@ -26,5 +24,5 @@
     </div>
     <div id="messages">
     </div>
-  </body> 
+  </body>
 </html>
