@@ -1,0 +1,394 @@
+/*
+this stylesheet © 2023 by Sosasees
+  (https://www.lexaloffle.com/bbs/?uid=42335)
+is licensed under CC BY 4.0:
+  https://creativecommons.org/licenses/by/4.0/
+*/
+
+
+
+/* most keyboards */
+.key--escape {
+  --key__symbol: url(../symbols/escape.svg);
+}
+.key--grave-accent {
+  --key__symbol: url(../symbols/grave-accent_and_tilde.svg);
+}
+.key--1 {
+  --key__symbol: url(../symbols/1_and_exclaimation.svg);
+}
+.key--2 {
+  --key__symbol: url(../symbols/2_and_at.svg);
+}
+.key--3 {
+  --key__symbol: url(../symbols/3_and_hash.svg);
+}
+.key--4 {
+  --key__symbol: url(../symbols/4_and_dollar.svg);
+}
+.key--5 {
+  --key__symbol: url(../symbols/5_and_percent.svg);
+}
+.key--6 {
+  --key__symbol: url(../symbols/6_and_circumflex.svg);
+}
+.key--7 {
+  --key__symbol: url(../symbols/7_and_and.svg);
+}
+.key--8 {
+  --key__symbol: url(../symbols/8_and_asterisk.svg);
+}
+.key--9 {
+  --key__symbol: url(../symbols/9_and_bracket-left.svg);
+}
+.key--0 {
+  --key__symbol: url(../symbols/0_and_bracket-right.svg);
+}
+.key--minus {
+  --key__symbol: url(../symbols/minus_and_underscore.svg);
+}
+.key--plus {
+  --key__symbol: url(../symbols/plus_and_equals.svg);
+}
+.key--angle-bracket-left {
+  --key__symbol: url(../symbols/angle-bracket-left_and_curly-bracket-left.svg);
+}
+.key--angle-bracket-right {
+  --key__symbol: url(../symbols/angle-bracket-right_and_curly-bracket-right.svg);
+}
+.key--backslash {
+  --key__symbol: url(../symbols/backslash_and_vertical-bar.svg);
+}
+.key--tab {
+  --key__symbol: url(../symbols/tab.svg);
+}
+.key--semicolon {
+  --key__symbol: url(../symbols/semicolon_and_colon.svg);
+}
+.key--quote {
+  --key__symbol: url(../symbols/quote_and_quotes.svg);
+}
+.key--backspace {
+  --key__symbol: url(../symbols/backspace.svg);
+}
+.key--shift {
+  --key__symbol: url(../symbols/shift.svg);
+}
+.key--caps {
+  --key__symbol: url(../symbols/caps.svg);
+}
+.key--comma {
+  --key__symbol: url(../symbols/comma_and_lesser-than.svg);
+}
+.key--period {
+  --key__symbol: url(../symbols/period_and_greater-than.svg);
+}
+.key--slash {
+  --key__symbol: url(../symbols/slash_and_question.svg);
+}
+.key--enter {
+  --key__symbol: url(../symbols/enter.svg);
+}
+.key--control {
+  --key__symbol: url(../symbols/control.svg);
+}
+.key--space {
+  --key__symbol: url(../symbols/space.svg);
+}
+.key--arrow-left {
+  --key__symbol: url(../symbols/arrow_left.svg);
+}
+.key--arrow-right {
+  --key__symbol: url(../symbols/arrow_right.svg);
+}
+.key--arrow-up {
+  --key__symbol: url(../symbols/arrow_up.svg);
+}
+.key--arrow-down {
+  --key__symbol: url(../symbols/arrow_down.svg);
+}
+
+/* normal keyboard */
+.key--q {
+  --key__symbol: url(../symbols/q.svg);
+}
+.key--w {
+  --key__symbol: url(../symbols/w.svg);
+}
+.key--e {
+  --key__symbol: url(../symbols/e.svg);
+}
+.key--r {
+  --key__symbol: url(../symbols/r.svg);
+}
+.key--t {
+  --key__symbol: url(../symbols/t.svg);
+}
+.key--y {
+  --key__symbol: url(../symbols/y.svg);
+}
+.key--u {
+  --key__symbol: url(../symbols/u.svg);
+}
+.key--i {
+  --key__symbol: url(../symbols/i.svg);
+}
+.key--o {
+  --key__symbol: url(../symbols/o.svg);
+}
+.key--p {
+  --key__symbol: url(../symbols/p.svg);
+}
+.key--a {
+  --key__symbol: url(../symbols/a.svg);
+}
+.key--s {
+  --key__symbol: url(../symbols/s.svg);
+}
+.key--d {
+  --key__symbol: url(../symbols/d.svg);
+}
+.key--f {
+  --key__symbol: url(../symbols/f.svg);
+}
+.key--g {
+  --key__symbol: url(../symbols/g.svg);
+}
+.key--h {
+  --key__symbol: url(../symbols/h.svg);
+}
+.key--j {
+  --key__symbol: url(../symbols/j.svg);
+}
+.key--k {
+  --key__symbol: url(../symbols/k.svg);
+}
+.key--l {
+  --key__symbol: url(../symbols/l.svg);
+}
+.key--z {
+  --key__symbol: url(../symbols/z.svg);
+}
+.key--x {
+  --key__symbol: url(../symbols/x.svg);
+}
+.key--c {
+  --key__symbol: url(../symbols/c.svg);
+}
+.key--v {
+  --key__symbol: url(../symbols/v.svg);
+}
+.key--b {
+  --key__symbol: url(../symbols/b.svg);
+}
+.key--n {
+  --key__symbol: url(../symbols/n.svg);
+}
+.key--m {
+  --key__symbol: url(../symbols/m.svg);
+}
+
+/* glyph keyboard */
+.key--ellipsis {
+  --key__symbol: url(../symbols/ellipsis.svg);
+}
+.key--sawtooth {
+  --key__symbol: url(../symbols/sawtooth.svg);
+}
+.key--dot-pattern {
+  --key__symbol: url(../symbols/dot-pattern.svg);
+}
+.key--button_right {
+  --key__symbol: url(../symbols/button_right.svg);
+}
+.key--hourglass {
+  --key__symbol: url(../symbols/hourglass.svg);
+}
+.key--lines_horizontal {
+  --key__symbol: url(../symbols/lines_horizontal.svg);
+}
+.key--button_up {
+  --key__symbol: url(../symbols/button_up.svg);
+}
+.key--eye {
+  --key__symbol: url(../symbols/eye.svg);
+}
+.key--button_circle {
+  --key__symbol: url(../symbols/button_circle.svg);
+}
+.key--diamond {
+  --key__symbol: url(../symbols/diamond.svg);
+}
+.key--rectangle {
+  --key__symbol: url(../symbols/rectangle.svg);
+}
+.key--star {
+  --key__symbol: url(../symbols/star.svg);
+}
+.key--button_down {
+  --key__symbol: url(../symbols/button_down.svg);
+}
+.key--throwing-star {
+  --key__symbol: url(../symbols/throwing-star.svg);
+}
+.key--ball {
+  --key__symbol: url(../symbols/ball.svg);
+}
+.key--heart {
+  --key__symbol: url(../symbols/heart.svg);
+}
+.key--humanoid {
+  --key__symbol: url(../symbols/humanoid.svg);
+}
+.key--house {
+  --key__symbol: url(../symbols/house.svg);
+}
+.key--button_left {
+  --key__symbol: url(../symbols/button_left.svg);
+}
+.key--lines_vertical {
+  --key__symbol: url(../symbols/lines_vertical.svg);
+}
+.key--button_cross {
+  --key__symbol: url(../symbols/button_cross.svg);
+}
+.key--cat {
+  --key__symbol: url(../symbols/cat.svg);
+}
+.key--birds {
+  --key__symbol: url(../symbols/birds.svg);
+}
+.key--checkerboard {
+  --key__symbol: url(../symbols/checkerboard.svg);
+}
+.key--music-note {
+  --key__symbol: url(../symbols/music-note.svg);
+}
+.key--face {
+  --key__symbol: url(../symbols/face.svg);
+}
+
+/* puny keyboard */
+.key--q--puny {
+  --key__symbol: url(../symbols/q--puny.svg);
+}
+.key--w--puny {
+  --key__symbol: url(../symbols/w--puny.svg);
+}
+.key--e--puny {
+  --key__symbol: url(../symbols/e--puny.svg);
+}
+.key--r--puny {
+  --key__symbol: url(../symbols/r--puny.svg);
+}
+.key--t--puny {
+  --key__symbol: url(../symbols/t--puny.svg);
+}
+.key--y--puny {
+  --key__symbol: url(../symbols/y--puny.svg);
+}
+.key--u--puny {
+  --key__symbol: url(../symbols/u--puny.svg);
+}
+.key--i--puny {
+  --key__symbol: url(../symbols/i--puny.svg);
+}
+.key--o--puny {
+  --key__symbol: url(../symbols/o--puny.svg);
+}
+.key--p--puny {
+  --key__symbol: url(../symbols/p--puny.svg);
+}
+.key--a--puny {
+  --key__symbol: url(../symbols/a--puny.svg);
+}
+.key--s--puny {
+  --key__symbol: url(../symbols/s--puny.svg);
+}
+.key--d--puny {
+  --key__symbol: url(../symbols/d--puny.svg);
+}
+.key--f--puny {
+  --key__symbol: url(../symbols/f--puny.svg);
+}
+.key--g--puny {
+  --key__symbol: url(../symbols/g--puny.svg);
+}
+.key--h--puny {
+  --key__symbol: url(../symbols/h--puny.svg);
+}
+.key--j--puny {
+  --key__symbol: url(../symbols/j--puny.svg);
+}
+.key--k--puny {
+  --key__symbol: url(../symbols/k--puny.svg);
+}
+.key--l--puny {
+  --key__symbol: url(../symbols/l--puny.svg);
+}
+.key--z--puny {
+  --key__symbol: url(../symbols/z--puny.svg);
+}
+.key--x--puny {
+  --key__symbol: url(../symbols/x--puny.svg);
+}
+.key--c--puny {
+  --key__symbol: url(../symbols/c--puny.svg);
+}
+.key--v--puny {
+  --key__symbol: url(../symbols/v--puny.svg);
+}
+.key--b--puny {
+  --key__symbol: url(../symbols/b--puny.svg);
+}
+.key--n--puny {
+  --key__symbol: url(../symbols/n--puny.svg);
+}
+.key--m--puny {
+  --key__symbol: url(../symbols/m--puny.svg);
+}
+
+/* controller */
+.key--controller-dpad--up {
+  --key__surface: url(../surfaces/controller/dpad--up.svg);
+}
+.key--controller-dpad--up:active {
+  --key__surface: url(../surfaces/controller/dpad--up--pressed.svg);
+}
+.key--controller-dpad--left {
+  --key__surface: url(../surfaces/controller/dpad--left.svg);
+}
+.key--controller-dpad--left:active {
+  --key__surface: url(../surfaces/controller/dpad--left--pressed.svg);
+}
+.key--controller-dpad--center {
+  --key__surface: url(../surfaces/controller/dpad--center.svg);
+}
+.key--controller-dpad--center:active {
+  --key__surface: url(../surfaces/controller/dpad--center.svg);
+}
+.key--controller-dpad--right {
+  --key__surface: url(../surfaces/controller/dpad--right.svg);
+}
+.key--controller-dpad--right:active {
+  --key__surface: url(../surfaces/controller/dpad--right--pressed.svg);
+}
+.key--controller-dpad--down {
+  --key__surface: url(../surfaces/controller/dpad--down.svg);
+}
+.key--controller-dpad--down:active {
+  --key__surface: url(../surfaces/controller/dpad--down--pressed.svg);
+}
+.key--controller-button--cross {
+  --key__symbol: url(../symbols/controller__cross.svg);
+}
+.key--controller-button--circle {
+  --key__symbol: url(../symbols/controller__circle.svg);
+}
+.key--controller-button--circle-and-cross {
+  --key__surface: url(../surfaces/controller/button--circle-and-cross.svg);
+  --key__symbol-colors: url(../symbol-colors/controller-button--circle-and-cross.svg);
+}
+.key--controller-button--circle-and-cross:active {
+  --key__surface: url(../surfaces/controller/button--circle-and-cross.svg);
+}

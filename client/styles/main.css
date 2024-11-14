@@ -1,0 +1,27 @@
+/*
+this stylesheet © 2023 by Sosasees
+  (https://www.lexaloffle.com/bbs/?uid=42335)
+is licensed under CC BY 4.0:
+  https://creativecommons.org/licenses/by/4.0/
+*/
+
+
+
+.main-layout {  
+  margin: 0;
+  background-color: #000;
+
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.screen-container {
+  margin: auto;
+  flex-grow: 1;
+}
+.screen {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

@@ -1,0 +1,263 @@
+/*
+this stylesheet © 2023 by Sosasees
+  (https://www.lexaloffle.com/bbs/?uid=42335)
+is licensed under CC BY 4.0:
+  https://creativecommons.org/licenses/by/4.0/
+*/
+
+
+
+/* keyboard scales in steps of six pernif */
+@media (max-width: 248px) {
+  :root {
+    --keyboard__scale-factor: 1;
+  }
+}
+@media (min-width: 248px) {
+  :root {
+    --keyboard__scale-factor: 1.1667;
+  }
+}
+@media (min-width: 274px) {
+  :root {
+    --keyboard__scale-factor: 1.3333;
+  }
+}
+@media (min-width: 302px) {
+  :root {
+    --keyboard__scale-factor: 1.5;
+  }
+}
+@media (min-width: 328px) {
+  :root {
+    --keyboard__scale-factor: 1.6667;
+  }
+}
+@media (min-width: 354px) {
+  :root {
+    --keyboard__scale-factor: 1.8333;
+  }
+}
+@media (min-width: 382px) {
+  :root {
+    --keyboard__scale-factor: 2;
+  }
+}
+@media (min-width: 408px) {
+  :root {
+    --keyboard__scale-factor: 2.1667;
+  }
+}
+@media (min-width: 436px) {
+  :root {
+    --keyboard__scale-factor: 2.3333;
+  }
+}
+@media (min-width: 464px) {
+  :root {
+    --keyboard__scale-factor: 2.5;
+  }
+}
+@media (min-width: 490px) {
+  :root {
+    --keyboard__scale-factor: 2.6667;
+  }
+}
+@media (min-width: 516px) {
+  :root {
+    --keyboard__scale-factor: 2.8333;
+  }
+}
+@media (min-width: 544px) {
+  :root {
+    --keyboard__scale-factor: 3;
+  }
+}
+
+
+.keyboard-container {
+  width: 100%;
+  text-align: center;
+  margin: auto;
+  flex-grow: 0;
+}
+
+.keyboard__row {
+  background-color: #1d2b53;
+  padding-top: calc(2px * var(--keyboard__scale-factor));
+  padding-bottom: calc(2px * var(--keyboard__scale-factor));
+}
+.keyboard__row--no-background {
+  background-color: #000000;
+}
+.keyboard__row--offset-left {
+  padding-right: calc(14px * var(--keyboard__scale-factor));
+}
+.keyboard__row--align-right {
+  padding-left: calc(64px * var(--keyboard__scale-factor));
+}
+.keyboard__row--align-right-extreme {
+  text-align: right;
+  padding-right: calc(18px * var(--keyboard__scale-factor));
+}
+.keyboard__row--offset-right {
+  padding-left: calc(14px * var(--keyboard__scale-factor));
+}
+
+
+:root {
+  --key__symbol: url(../symbols/keys/space.svg);
+  --key__symbol-colors: url(../symbol-colors/1-symbol.svg);
+  --key__surface: url(../surfaces/keycap.svg);
+  
+  --key__width: calc(11px * var(--keyboard__scale-factor));
+  --key__width--controller-dpad: calc(24px * var(--keyboard__scale-factor));
+  --key__width--controller-button: calc(36px * var(--keyboard__scale-factor));
+  --key__height: calc(12px * var(--keyboard__scale-factor));
+}
+
+.key {
+  width: var(--key__width);
+  height: var(--key__height);
+  background-color: #0000;
+  background-image:
+    var(--key__symbol-colors),
+    var(--key__symbol),
+    var(--key__surface);
+  background-blend-mode: multiply, normal, normal;
+  
+  background-size: contain;
+  background-repeat: no-repeat;
+  
+  color: #0000;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+.key:active {
+  --key__surface: url(../surfaces/keycap--pressed.svg);
+  background-image: var(--key__surface);
+}
+.key--toggled {
+  background-image:
+    var(--key__symbol),
+    var(--key__symbol-colors),
+    var(--key__surface);
+  background-blend-mode: difference, normal, normal;
+}
+
+.key--tab-button {
+  width: calc(15px * var(--keyboard__scale-factor));
+  height: calc(9px * var(--keyboard__scale-factor));
+}
+.key--tab-button--keyboard--active {
+  background-image: url(../surfaces/tab-button--keyboard--active.svg);
+}
+.key--tab-button--keyboard--active:active {
+  background-image: url(../surfaces/tab-button--keyboard--active.svg);
+}
+.key--tab-button--keyboard--inactive {
+  background-image: url(../surfaces/tab-button--keyboard--inactive.svg);
+}
+.key--tab-button--keyboard--inactive:active {
+  background-image: url(../surfaces/tab-button--keyboard--inactive.svg);
+}
+.key--tab-button--controller--active {
+  background-image: url(../surfaces/tab-button--controller--active.svg);
+}
+.key--tab-button--controller--active:active {
+  background-image: url(../surfaces/tab-button--controller--active.svg);
+}
+.key--tab-button--controller--inactive {
+  background-image: url(../surfaces/tab-button--controller--inactive.svg);
+}
+.key--tab-button--controller--inactive:active {
+  background-image: url(../surfaces/tab-button--controller--inactive.svg);
+}
+
+.key--19dp-wide {
+  width: calc(19px * var(--keyboard__scale-factor));
+  --key__surface: url(../surfaces/keycap--19dp-wide.svg);
+  --key__symbol-colors: url(../symbol-colors/19dp-wide.svg);
+}
+.key--19dp-wide:active {
+  --key__surface: url(../surfaces/keycap--19dp-wide--pressed.svg);
+}
+.key--26dp-wide {
+  width: calc(26px * var(--keyboard__scale-factor));
+  --key__surface: url(../surfaces/keycap--26dp-wide.svg);
+  --key__symbol-colors: url(../symbol-colors/26dp-wide.svg);
+}
+.key--26dp-wide:active {
+  --key__surface: url(../surfaces/keycap--26dp-wide--pressed.svg);
+}
+.key--extra-wide {
+  width: calc(78px * var(--keyboard__scale-factor));
+  --key__surface: url(../surfaces/keycap--extra-wide.svg);
+  --key__symbol-colors: url(../symbol-colors/extra-wide.svg);
+}
+.key--extra-wide:active {
+  --key__surface: url(../surfaces/keycap--extra-wide--pressed.svg);
+}
+
+.key--two-symbols {
+  --key__symbol-colors: url(../symbol-colors/2-symbols.svg);
+}
+.key--two-symbols--shift {
+  --key__symbol-colors: url(../symbol-colors/2-symbols--shift.svg);
+}
+
+.key--margin-left {
+  margin-left: calc(8px * var(--keyboard__scale-factor));
+}
+
+
+.key--controller-dpad {
+  width: calc(24px * var(--keyboard__scale-factor));
+  height: calc(24px * var(--keyboard__scale-factor));
+  --key__surface: url(../surfaces/controller/dpad--corner.svg);
+  --key__symbol-colors: url(../symbol-colors/controller-dpad.svg);
+}
+.key--controller-dpad:active {
+  --key__surface: url(../surfaces/controller/dpad--corner.svg);
+}
+.key--controller-button {
+  width: var(--key__width--controller-button);
+  height: calc(36px * var(--keyboard__scale-factor));
+  --key__surface: url(../surfaces/controller/button.svg);
+  --key__symbol-colors: url(../symbol-colors/controller-button.svg);
+}
+.key--controller-button:active {
+  --key__surface: url(../surfaces/controller/button--pressed.svg);
+}
+
+
+.keyboard__controller {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns:
+    calc( var(--key__width--controller-dpad) * 3 )
+    1fr
+    calc( var(--key__width--controller-button) * 2 );
+}
+.controller__dpad {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  
+  display: grid;
+  grid-template-columns:
+    repeat( 3, var(--key__width--controller-dpad) );
+  grid-template-rows:
+    repeat( 3, calc(24px * var(--keyboard__scale-factor)) );
+}
+.controller__buttons {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  
+  display: grid;
+  grid-template-columns:
+    repeat( 2, var(--key__width--controller-button) );
+  grid-template-rows:
+    repeat( 2, calc(36px * var(--keyboard__scale-factor)) );
+}
