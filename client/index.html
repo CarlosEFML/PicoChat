@@ -1,7 +1,6 @@
 ﻿<html><head>
 <title>PICO-8 Cartridge</title>
 <meta name="viewport" content="width=device-width, user-scalable=no">
-<link rel="stylesheet" href="styles/styles.css">
 <script type="text/javascript">
 
 	// Default shell for PICO-8 0.2.2 (includes @weeble's gamepad mod 1.0)
@@ -633,7 +632,7 @@
 
 		}
 		e.type = "application/javascript";
-		e.src = "test.js";
+		e.src = "client.js";
 		e.id = "e_script";
 		
 		document.body.appendChild(e); // load and run
@@ -1121,7 +1120,8 @@ canvas{
 
 <!-- Add content below the cart here -->
 
-    <div class='keyboard-container'>
+<link rel="stylesheet" href="styles/styles.css">
+<div class='keyboard-container'>
       
       <div class='js-keyboard--normal'>
         <div class='keyboard__row keyboard__row--no-background keyboard__row--align-right'>
