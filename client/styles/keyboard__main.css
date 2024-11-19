@@ -117,6 +117,7 @@ is licensed under CC BY 4.0:
 }
 
 .key {
+  touch-action: manipulation;
   width: var(--key__width);
   height: var(--key__height);
   background-color: #0000;
