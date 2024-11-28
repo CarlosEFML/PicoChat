@@ -55,14 +55,16 @@ server.on('connection', function(socket) {
 
   socket.on('close', function() {
     var id=sockets.get(socket)
-    delete ids[id]
-    sockets.delete(socket)
+    if(id) {
+      delete ids[id]
+      var leftMsg=stringToUint8(" left the chat.")
+      var pack=new Uint8Array(id.length+leftMsg.length)
+      pack.set(id)
+      pack.set(leftMsg, id.length)
+      sendToAll(pack)
+    }
 
-    var leftMsg=stringToUint8(" left the chat.")
-    var pack=new Uint8Array(id.length+leftMsg.length)
-    pack.set(id)
-    pack.set(leftMsg, id.length)
-    sendToAll(pack)
+    sockets.delete(socket)
   });
 });
 
