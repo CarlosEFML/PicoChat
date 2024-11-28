@@ -1119,11 +1119,9 @@ canvas{
 
 
 <!-- Add content below the cart here -->
-
 <link rel="stylesheet" href="styles/styles.css">
-<div class='keyboard-container'>
-      
-      <div class='js-keyboard--normal'>
+<div id="keyboard-container" class='keyboard-container' style="visibility: hidden; background-color: black;">
+      <div id="js-keyboard--normal" class='js-keyboard--normal'>
         <div class='keyboard__row keyboard__row--no-background keyboard__row--align-right'>
           <button disabled class='key key--tab-button key--tab-button--keyboard--active'>
             switch to keyboard
@@ -1304,10 +1302,10 @@ canvas{
             Space
           </button>
           <button class='key key--arrow-left js-key--arrow-left'>
-            ←
+            ArrowLeft
           </button>
           <button class='key key--arrow-right js-key--arrow-right'>
-            →
+            ArrowRight
           </button>
           <button class='key key--arrow-up js-key--arrow-up'>
             ArrowUp
@@ -1318,7 +1316,7 @@ canvas{
         </div>
       </div>
       
-      <div class='js-keyboard--glyphs'>
+      <div id='js-keyboard--glyphs' class='js-keyboard--glyphs' style='display: none;'>
         <div class='keyboard__row keyboard__row--no-background keyboard__row--align-right'>
           <button disabled class='key key--tab-button key--tab-button--keyboard--active'>
             switch to keyboard
@@ -1444,10 +1442,10 @@ canvas{
             ⬅️
           </button>
           <button class='key key--two-symbols--shift key--semicolon js-key--colon'>
-            ;
+            :
           </button>
           <button class='key key--two-symbols--shift key--quote js-key--quotes'>
-            '
+            "
           </button>
           <button class='key key--19dp-wide key--backspace js-key--backspace'>
             Backspace
@@ -1513,7 +1511,7 @@ canvas{
         </div>
       </div>
       
-      <div class='js-keyboard--puny'>
+      <div id='js-keyboard--puny' class='js-keyboard--puny' style="display: none;">
         <div class='keyboard__row keyboard__row--no-background keyboard__row--align-right'>
           <button disabled class='key key--tab-button key--tab-button--keyboard--active'>
             switch to keyboard
@@ -1708,7 +1706,7 @@ canvas{
         </div>
       </div>
       
-      <div class='js-keyboard--puny--shift'>
+      <div id='js-keyboard--puny--shift' class='js-keyboard--puny--shift' style="display: none;">
         <div class='keyboard__row keyboard__row--no-background keyboard__row--align-right'>
           <button disabled class='key key--tab-button key--tab-button--keyboard--active'>
             switch to keyboard
@@ -1903,7 +1901,7 @@ canvas{
         </div>
       </div>
       
-      <div class='js-keyboard--controller'>
+      <div id='js-keyboard--controller' class='js-keyboard--controller' style="display: none;">
         <div class='keyboard__row keyboard__row--align-right-extreme'>
           <button class='key key--tab-button key--tab-button--keyboard--inactive js-tab-button--keyboard'>
             switch to keyboard
@@ -1955,7 +1953,7 @@ canvas{
           </div>
         </div>
       </div>
-        
+	  <div style="width: 100%; height: 60; background-color: #000;"></div>
     </div>
 
 <script src="gpiolib.js"></script>
@@ -2040,45 +2038,133 @@ canvas{
 </script>
 
 <script>
-  function keyFromText(text) {
-	if(text.length==1) return text.toLowerCase()
-	if(text=="Space") return " "
-	if(text=="Enter") return 13
-	if(text=="ArrowLeft") return 37
-	if(text=="ArrowRight") return 39
-	if(text=="ArrowUp") return 38
-	if(text=="ArrowDown") return 40
-	return text
-  }
+	var currentKeyboard="js-keyboard--normal"
 
-  let elements = document.getElementsByClassName("key")
-  for(var i=0; i<elements.length; i++) {
-    elements[i].addEventListener('click', function(evt) {
-	  let key=keyFromText(evt.srcElement.innerText)
+	// Hooking addEventListener to avoid pico8 listeners from prevent default events beahviours
+	var originalAddEventListener = addEventListener
+	var eventListeners = []
+	function hookAddEventListener() {
+		function addEventListenerHook(type, listener, options) {
+			eventListeners.push({"type": type, "listener": listener, "options": options})
+		}
+		addEventListener = addEventListenerHook
+	}
 
-	  if((typeof key)=="string") {
-		event = new KeyboardEvent("keydown", {
-          key: key
-      	})
-	  } else {
-		let keyText = key==13?"Enter":null
-		setTimeout(()=>{
-		  let upEvent = new KeyboardEvent("keyup", {
-			key: keyText,
-            keyCode: key
-          })
-		  document.dispatchEvent(upEvent)
-		},100)
+	function initVirtualKbd() {
+		setupVirtualKbdEvents()
+		hookAddEventListener()
+		requestAnimationFrame(checkInitialization);
+	}
 
-		event = new KeyboardEvent("keydown", {
-		  key: keyText,
-          keyCode: key
-      	})
-	  }
 
-      document.dispatchEvent(event)
-    })
-  }
+	function setupVirtualKeyboard() {
+		// Avoid remotion of UI elements.
+		document.getElementById("body_0").id="body_"
+
+		// Override touch controls with keyboard
+		var touchControls = document.getElementById("touch_controls_gfx")
+
+		var kbd = document.getElementById("keyboard-container")
+		document.getElementById("p8_playarea").appendChild(kbd)
+		kbd.addEventListener("touchmove", function(evt) {
+			evt.preventDefault()
+		})
+		kbd.style.visibility="visible"
+		kbd.style.position="absolute"
+		kbd.style.left=0
+		kbd.style.top=touchControls.top
+		kbd.style.width=touchControls.width
+	}
+
+	function checkInitialization() {
+		if(!pico8_audio_context) {
+			requestAnimationFrame(checkInitialization);
+		}
+		else {
+			if(p8_touch_detected) {
+				setupVirtualKeyboard()
+			} else {
+				restoreEventListeners() 
+			}
+		}
+	}
+
+	function restoreEventListeners() {
+		addEventListener = originalAddEventListener
+		for(var i=0; i<eventListeners.length; i++) {
+			let listener = eventListeners[i]
+			addEventListener(listener.type, listener.listener, listener.options)
+		}
+	}
+
+	function setupVirtualKbdEvents() {
+		var upEvent = null
+		let elements = document.getElementsByClassName("key")
+		for(var i=0; i<elements.length; i++) {
+			//elements[i].addEventListener('mousedown', function(evt) {
+			elements[i].addEventListener('touchstart', function(evt) {
+				let keyPressed=keyFromText(evt.srcElement.innerText)
+				let key=null
+				let keyCode=null
+
+				if(keyPressed == "shift") {
+					if(currentKeyboard=="js-keyboard--normal")
+						switchToKeyboard("js-keyboard--glyphs")
+					else
+						switchToKeyboard("js-keyboard--normal")
+				}
+
+				if((typeof keyPressed)=="string") {
+					key = keyPressed
+				} else {
+					key = keyPressed==13?"Enter":null
+					keyCode = keyPressed
+				}
+
+				let downEvent = new KeyboardEvent("keydown", {
+					key: key,
+					keyCode: keyCode
+				})
+				let pressEvent = new KeyboardEvent("keypress", {
+					key: key,
+					keyCode: keyCode
+				})
+				upEvent = new KeyboardEvent("keyup", {
+					key: key,
+					keyCode: keyCode
+				})
+
+				document.dispatchEvent(downEvent)
+				setTimeout(()=>{
+						document.dispatchEvent(pressEvent)
+				},20)
+			})
+
+			//elements[i].addEventListener('mouseup', function(evt) {
+			elements[i].addEventListener('touchend', function(evt) {
+				document.dispatchEvent(upEvent)
+			})
+		}
+	}
+
+	function keyFromText(text) {
+		if(text.length==1) return text.toLowerCase()
+		if(text=="Space") return " "
+		if(text=="Enter") return 13
+		if(text=="ArrowLeft") return 37
+		if(text=="ArrowRight") return 39
+		if(text=="ArrowUp") return 38
+		if(text=="ArrowDown") return 40
+		return text
+	}
+
+	function switchToKeyboard(keyboardId) {
+		document.getElementById(currentKeyboard).style.display="none"
+		currentKeyboard = keyboardId
+		document.getElementById(currentKeyboard).style.display="block"
+	}
+
+	initVirtualKbd()
 </script>
 
 </div> <!-- body_0 -->

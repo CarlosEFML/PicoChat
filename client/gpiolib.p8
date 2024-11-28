@@ -5,33 +5,26 @@ local recvdata={}
 local datatosend={}
 
 function initgpio()
-  poke(0x5f80,0xff) // request new data
-  poke(0x5f81,0)
+  poke(0x5f80,0) // gives ownershipt to javascript
 end
 
 function updategpio()
-  local recvlen=peek(0x5f80)
-  if recvlen<0xff then // data received
-    for i=1,recvlen do
-      add(recvdata,peek(0x5f81+i))
-    end
-    poke(0x5f80,0xff) // request new data
+  local gpio0=peek(0x5f80)
+  if band(gpio0,0x80)==0 then // owner = javascript
+    return
   end
 
-  // javascript requesting data
-  if peek(0x5f81)==0xff then
-    local len=min(#datatosend,126)
-
-    // this code can be interrupted at any time.
-    // set 0x5f81=0xfe to notify javascript that
-    // we are writing gpio data
-    poke(0x5f81,0xfe)
-    for i=1,len do
-      local v=deli(datatosend,1)
-      poke(0x5f81+i,v)
-    end
-    poke(0x5f81,len) // len of data sent
+  local rdsz=band(gpio0,0x7f) // get data length to read
+  for i=1,rdsz do // read data
+    add(recvdata,peek(0x5f80+i))
   end
+
+  local wrsz=min(#datatosend,127) // get data length to write
+  for i=1,wrsz do // write data
+    local v=deli(datatosend,1)
+    poke(0x5f80+i,v)
+  end
+  poke(0x5f80,wrsz) // gives ownership to javascript and write data size
 end
 
 function sendpack(data,isstr)

@@ -4,9 +4,11 @@ __lua__
 #include gpiolib.p8
 
 local status="disconnected"
+local menustatus=nil
+
 local currserver="wss://testrender-i509.onrender.com"
 local tibkp=nil
-local statusbkp=nil
+
 local lines={}
 local scroll=0
 
@@ -42,8 +44,9 @@ function readkb(t)
     // tab = menu
     if c=="\9" then
       // cancel current option
-      if statusbkp then
-        restorestatusandinput()
+      if menustatus then
+        menustatus=nil
+        restoreinput()
       else
         extcmd('pause')
       end
@@ -72,24 +75,21 @@ function drawbigtext(t)
   end
 end
 
-function bkpstatusandinput()
-  if(statusbkp==nil)statusbkp=status
+function bkpinput()
   if(tibkp==nil)tibkp=ti.text
 end
 
-function restorestatusandinput()
-  if(statusbkp)status=statusbkp
+function restoreinput()
   if(tibkp)ti.text=tibkp
-  statusbkp=nil
   tibkp=nil
 end
 
 function initmenu()
   menuitem(1,"select server",
     function(b)
-      bkpstatusandinput()
+      bkpinput()
       ti.text=currserver
-      status="select server"
+      menustatus="select server"
     end)
   menuitem(2,"disconnect",
     function(b)
@@ -117,7 +117,8 @@ function getserver()
   print("    (tab to cancel)",16,64,7)
   if readkb(ti) then
     currserver=ti.text
-    restorestatusandinput()
+    restoreinput()
+    menustatus=nil
     status="connecting"
   end
 end
@@ -174,16 +175,17 @@ function _update()
   cls(0)
 
   updategpio()
+  local s=menustatus or status
 
-  if status=="select server" then
+  if s=="select server" then
     getserver()
-  elseif status=="connecting" then
+  elseif s=="connecting" then
     status="connecting..."
     sendpack("\0"..currserver,1)
-  elseif status=="disconnecting" then
+  elseif s=="disconnecting" then
     status="disconnecting..."
     sendpack({1})
-  elseif status=="connected" then
+  elseif s=="connected" then
     drawlines()
     if readkb(ti) then
       sendpack("\2"..ti.text,1)
@@ -203,10 +205,8 @@ function _update()
     if cmd=="\0" then
       status="connected"
       lines={}
-      if(statusbkp)statusbkp="connected"
     elseif cmd=="\1" then
       status="disconnected"
-      if(statusbkp)statusbkp="disconnected"
     elseif cmd=="\2" then
       local pos=findchar(data,":")
       if pos>0 then

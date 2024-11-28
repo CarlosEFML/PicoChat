@@ -31,37 +31,24 @@ function sendPack(data, isstring) {
 
 function gpioUpdate() {
 	requestAnimationFrame(gpioUpdate);
-	// Pico8 was interrupted while writing data to gpio bus
-	if(pico8gpio[1]==0xfe) {
+	if((pico8gpio[0] & 0x80) == 0x80) // owner = pico8
 		return
+
+	let rdsz = pico8gpio[0] & 0x7f // get data length to read
+	for(let i=0; i<rdsz; i++) { // read data
+		recvData.push(pico8gpio[i+1])
 	}
 
-	if((pico8gpio[1] & 0xff) != 0xff) { // data sent by pico8
-		let len = pico8gpio[1] & 0xff
-		for(let i=0; i<len; i++) {
-			recvData.push(pico8gpio[i+2])
-		}
-		pico8gpio[1] = 0xff // request data from pico8
+	let wrsz = dataToSend.length>127 ? 127 : dataToSend.length // get data length to write
+	for(let i=0;i<wrsz; i++) { // write data
+		pico8gpio[i+1]=dataToSend[i]
 	}
-	if((pico8gpio[0] & 0xff) == 0xff) { // pico8 requesting data
-		let len=dataToSend.length>126?126:dataToSend.length
-		for(let i=0;i<len; i++) {
-			pico8gpio[i+2]=dataToSend[i]
-		}
-		dataToSend=dataToSend.slice(len)
-		pico8gpio[0] = len
-	}
-}
-
-function gpioInitLoop() {
-	if((pico8gpio[0]==0xff) && (pico8gpio[1]==0)) {
-		gpioUpdate()
-	} else {
-		requestAnimationFrame(gpioInitLoop);
-	}
+	dataToSend=dataToSend.slice(wrsz) // removes data sent from the local buffer
+	pico8gpio[0] = wrsz + 0x80 // gives ownership to pico8 and write data size
 }
 
 function gpioInit(pico8_gpio) {
 	pico8gpio=pico8_gpio
-	gpioInitLoop()
+	pico8gpio[0]=0x80 // gives ownership to pico8
+	requestAnimationFrame(gpioUpdate);
 }
