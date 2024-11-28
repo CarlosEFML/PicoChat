@@ -6,7 +6,7 @@ __lua__
 local status="disconnected"
 local menustatus=nil
 
-local currserver="wss://testrender-i509.onrender.com"
+local currserver="wss://server-nfim.onrender.com"
 local tibkp=nil
 
 local lines={}
